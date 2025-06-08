@@ -30,8 +30,8 @@ exports.login = async (req, res) => {
     const token = createToken(user._id);
     res.cookie('jwt', token, {
       httpOnly: true,
-      secure: true,
-      sameSite: 'None',
+      secure: false,
+      sameSite: 'Lax',
       maxAge: 86400000,
     });
     res.json({ message: 'Login successful' });
