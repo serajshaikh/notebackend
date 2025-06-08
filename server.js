@@ -9,7 +9,7 @@ const authRoutes = require('./routes/authRoutes');
 const app = express();
 const allowedOrigins = [
   "http://localhost:5173",  // ← Vite default port
-  "https://notebackend-sable.vercel.app/" // ← Add your actual frontend
+  "https://notebackend-seven.vercel.app/" // ← Add your actual frontend
 ];
 
 app.use(cors({
