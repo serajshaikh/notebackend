@@ -31,11 +31,11 @@ exports.login = async (req, res) => {
     const token = createToken(user._id);
     res.cookie('jwt', token, {
       httpOnly: true,
-      secure: !isLocalhost,
-      sameSite: isLocalhost ? "Lax" : "None",
+      secure: isLocalhost,
+      sameSite: "None",
       maxAge: 86400000,
     });
-    res.json({ message: 'Login successful', isLocalhost });
+    res.json({ message: 'Login successful', isLocalhost, origin:req.headers.origin });
   } catch (err) {
     res.status(500).json({ error: 'Login error', err: JSON.stringify(err) });
   }
