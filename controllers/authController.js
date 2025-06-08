@@ -28,12 +28,18 @@ exports.login = async (req, res) => {
       return res.status(401).json({ error: 'Invalid credentials' });
 
     const token = createToken(user._id);
-    res.cookie('jwt', token, { httpOnly: true, secure: false, maxAge: 86400000 });
+    res.cookie('jwt', token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'None',
+      maxAge: 86400000,
+    });
     res.json({ message: 'Login successful' });
   } catch (err) {
     res.status(500).json({ error: 'Login error' });
   }
 };
+
 
 exports.logout = (req, res) => {
   res.clearCookie('jwt');

@@ -8,16 +8,24 @@ const authRoutes = require('./routes/authRoutes');
 
 const app = express();
 const allowedOrigins = [
-  "http://localhost:3000",
-  "https://notebackend-sable.vercel.app"
+  "http://localhost:5173",  // ← Vite default port
+  "https://notebackend-sable.vercel.app/" // ← Add your actual frontend
 ];
 
-app.use(
-  cors({
-    origin: "*", 
-    credentials: false,
-  })
-);
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
+  methods: ["GET", "POST", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+}));
+
+app.options("*", cors()); // ← Handles preflight
 app.use(express.json());
 app.use(cookieParser());
 
