@@ -9,8 +9,9 @@ const authRoutes = require('./routes/authRoutes');
 const app = express();
 
 const allowedOrigins = [
-  "http://localhost:5173", // Vite
-  "https://serajsnote.netlify.app/" // ✅ NO trailing slash
+  "http://localhost:5173",
+  "https://serajsnote.netlify.app/",
+  "https://apunp.netlify.app/"
 ];
 
 app.use(cors({
