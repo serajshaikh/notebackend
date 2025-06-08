@@ -27,7 +27,7 @@ app.use(cors({
   allowedHeaders: ["Content-Type", "Authorization"],
 }));
 
-// app.options("*", cors()); // Handles preflight
+app.options("*", cors()); // Handles preflight
 app.use(express.json());
 app.use(cookieParser());
 
