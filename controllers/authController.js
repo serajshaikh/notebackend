@@ -23,6 +23,7 @@ exports.signup = async (req, res) => {
 exports.login = async (req, res) => {
   const { email, password } = req.body;
   try {
+    const isLocalhost = req.hostname === "localhost" || req.headers.origin?.includes("localhost");
     const user = await User.findOne({ email });
     if (!user || !(await bcrypt.compare(password, user.password)))
       return res.status(401).json({ error: 'Invalid credentials' });
@@ -30,11 +31,11 @@ exports.login = async (req, res) => {
     const token = createToken(user._id);
     res.cookie('jwt', token, {
       httpOnly: true,
-      secure: false,
-      sameSite: 'Lax',
+      secure: !isLocalhost,
+      sameSite: isLocalhost ? "Lax" : "None",
       maxAge: 86400000,
     });
-    res.json({ message: 'Login successful' });
+    res.json({ message: 'Login successful', isLocalhost });
   } catch (err) {
     res.status(500).json({ error: 'Login error', err: JSON.stringify(err) });
   }

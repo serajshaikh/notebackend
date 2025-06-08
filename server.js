@@ -10,7 +10,7 @@ const app = express();
 
 const allowedOrigins = [
   "http://localhost:5173", // Vite
-  "https://notebackend-ashy.vercel.app/" // ✅ NO trailing slash
+  "https://serajsnote.netlify.app/" // ✅ NO trailing slash
 ];
 
 app.use(cors({
