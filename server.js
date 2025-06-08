@@ -10,7 +10,7 @@ const app = express();
 
 const allowedOrigins = [
   "http://localhost:5173", // Vite
-  "https://notebackend-sable.vercel.app" // ✅ NO trailing slash
+  "https://notebackend-ashy.vercel.app/" // ✅ NO trailing slash
 ];
 
 app.use(cors({
@@ -32,7 +32,7 @@ app.use(cookieParser());
 
 app.get("/", (_, res) => {
   try {
-    res.json({ message: 'Health check successful' });
+    res.json({ message: 'Health check successful!', allowedOrigins });
   } catch (err) {
     res.status(500).json({ error: 'HealthCheck error' });
   }
