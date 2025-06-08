@@ -7,9 +7,10 @@ require('dotenv').config();
 const authRoutes = require('./routes/authRoutes');
 
 const app = express();
+
 const allowedOrigins = [
-  "http://localhost:5173",  // ← Vite default port
-  "https://notebackend-seven.vercel.app/" // ← Add your actual frontend
+  "http://localhost:5173", // Vite
+  "https://notebackend-sable.vercel.app" // ✅ NO trailing slash
 ];
 
 app.use(cors({
@@ -25,12 +26,18 @@ app.use(cors({
   allowedHeaders: ["Content-Type", "Authorization"],
 }));
 
-app.options("*", cors()); // ← Handles preflight
+// app.options("*", cors()); // Handles preflight
 app.use(express.json());
 app.use(cookieParser());
 
+app.get("/", (_, res) => {
+  try {
+    res.json({ message: 'Health check successful' });
+  } catch (err) {
+    res.status(500).json({ error: 'HealthCheck error' });
+  }
+})
 app.use('/api/auth', authRoutes);
-
 mongoose.connect(process.env.MONGO_URI).then(() => {
   app.listen(process.env.PORT, () => {
     console.log(`Server running on port ${process.env.PORT}`);
