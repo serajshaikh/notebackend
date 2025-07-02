@@ -5,7 +5,12 @@ const Image = require('../models/Image');
 const fs = require('fs');
 
 const router = express.Router();
-const upload = multer({ dest: 'uploads/' }); // temp storage
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, '/tmp'),
+  filename: (req, file, cb) => cb(null, Date.now() + '-' + file.originalname),
+});
+const upload = multer({ storage });
+
 
 router.post('/upload', upload.single('image'), async (req, res) => {
   try {
