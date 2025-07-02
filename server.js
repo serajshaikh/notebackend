@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 require('dotenv').config();
+const uploadRoutes = require('./routes/upload');
 
 const authRoutes = require('./routes/authRoutes');
 const app = express();
@@ -37,6 +38,7 @@ app.get("/", (_, res) => {
 });
 
 app.use('/api/auth', authRoutes);
+app.use('/api', uploadRoutes);
 
 mongoose.connect(process.env.MONGO_URI).then(() => {
   app.listen(process.env.PORT, () => {
