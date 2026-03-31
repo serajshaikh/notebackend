@@ -10,8 +10,8 @@ const app = express();
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://serajsnote.netlify.app",
-  "https://apunp.netlify.app"
+  "https://apunp.netlify.app",
+  "https://ayaznote.netlify.app",
 ];
 
 const corsOptions = {
